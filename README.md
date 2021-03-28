@@ -1,0 +1,2 @@
+# MiniLB
+Minimalist LBM Code
