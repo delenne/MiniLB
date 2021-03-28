@@ -4,7 +4,7 @@ Minimalist LBM Code
 This code compute a Poiseuille flow into a pipe using Lattice Boltzmann Method (LBM) with D2Q9 scheme and BJK operator.
 
 ## Parameters
-All physical parameters are included at the begining of the main file.
+All physical parameters are included at the begining of the main file and are given in lattice units.
 
 ### Dimentions of the pipe 
 length: lx 
