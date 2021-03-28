@@ -12,7 +12,6 @@ g++ -O3 ./main.cpp -o MiniLB
 to run 
 ./MiniLB
 
-
 ## Visualisation
 
 The code outputs periodically two type of files:
@@ -26,3 +25,7 @@ These file can be open using Paraview (https://www.paraview.org)
 output_U_Profile_???.txt
 This file contains the velocity profile in section perpendicular to the fluid flow located at in the midle of the pipe. 
 
+## Important
+NFor the sake of clarity only basic boundary conditions have been integreted.
+To avoid instabilities for higher pressure drop, specific boundary conditions
+should be set for the 4 corners of the domain.
