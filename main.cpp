@@ -181,37 +181,37 @@ void output_pressure_velocity_fields() {
 	int x,y,i;
     double resolxy;
 	double P,ux,uy;
-	char nomfic[25];
-	FILE * sortie;
+	char filename[25];
+	FILE * output;
 	
-	sprintf(nomfic,"output_P_U_Fields_%.3i.vtk",(int) t/period);
+	sprintf(filename,"output_P_U_Fields_%.3i.vtk",(int) t/period);
 	resolxy=1./lx; 
-	sortie = fopen(nomfic, "w");
-	fprintf(sortie,"# vtk DataFile Version 2.0\n");
-	fprintf(sortie,"Sortie domaine LB+LINK t %li\n",t);
-	fprintf(sortie,"ASCII\n");
-	fprintf(sortie,"DATASET RECTILINEAR_GRID\n");
-	fprintf(sortie,"DIMENSIONS %d %d 1\n",lx,ly);
-	fprintf(sortie,"X_COORDINATES %d float\n",lx);
-	for(i=0;i<=lx-1;i++) fprintf(sortie,"%e ",(float)i * resolxy);
-	fprintf(sortie,"\n");
-	fprintf(sortie,"Y_COORDINATES %d float\n",ly);
-	for(i=0;i<=ly-1;i++) fprintf(sortie,"%e ",(float)i * resolxy);
-	fprintf(sortie,"\n");	
-	fprintf(sortie,"Z_COORDINATES 1 float\n");
-	fprintf(sortie,"0\n");
-	fprintf(sortie,"POINT_DATA %d\n",lx*ly);
-	fprintf(sortie,"SCALARS Pression float 1\n");
-	fprintf(sortie,"LOOKUP_TABLE default\n");
+	output = fopen(filename, "w");
+	fprintf(output,"# vtk DataFile Version 2.0\n");
+	fprintf(output,"Sortie domaine LB+LINK t %li\n",t);
+	fprintf(output,"ASCII\n");
+	fprintf(output,"DATASET RECTILINEAR_GRID\n");
+	fprintf(output,"DIMENSIONS %d %d 1\n",lx,ly);
+	fprintf(output,"X_COORDINATES %d float\n",lx);
+	for(i=0;i<=lx-1;i++) fprintf(output,"%e ",(float)i * resolxy);
+	fprintf(output,"\n");
+	fprintf(output,"Y_COORDINATES %d float\n",ly);
+	for(i=0;i<=ly-1;i++) fprintf(output,"%e ",(float)i * resolxy);
+	fprintf(output,"\n");	
+	fprintf(output,"Z_COORDINATES 1 float\n");
+	fprintf(output,"0\n");
+	fprintf(output,"POINT_DATA %d\n",lx*ly);
+	fprintf(output,"SCALARS Pression float 1\n");
+	fprintf(output,"LOOKUP_TABLE default\n");
 	for (y=0; y<ly;y++) {
 		for (x=0; x<lx;x++) {
 			P=0.;
 			for (i=0; i<9; i++) P += f[x][y][i];
 			P = (1./3.)*(P-1.);	
-			fprintf(sortie,"%.4e\n",P);
+			fprintf(output,"%.4e\n",P);
 		}	
 	}
-	fprintf(sortie,"VECTORS VecVelocity float\n");
+	fprintf(output,"VECTORS VecVelocity float\n");
 	for (y=0; y<ly;y++) {
 		for (x=0; x<lx;x++) {
 			ux=0.;
@@ -220,9 +220,8 @@ void output_pressure_velocity_fields() {
 				ux+= f[x][y][i]*cx[i];
 				uy+= f[x][y][i]*cy[i];
 			}
-			fprintf(sortie,"%.4e %.4e 0.\n",ux,uy);
+			fprintf(output,"%.4e %.4e 0.\n",ux,uy);
 		}
 	}
-	fclose(sortie);
+	fclose(output);
 }
-
